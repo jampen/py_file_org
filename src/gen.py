@@ -16,11 +16,6 @@ SEED = [
 ]
 
 
-# Stub
-class Unorganized:
-    pass
-
-
 def create_extension_map():
     """
         Returns a map of key extension and value category
