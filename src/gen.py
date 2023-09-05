@@ -7,6 +7,7 @@ from datetime import datetime
 """
     Here you can map your file extensions to a folder
 """
+# TODO: Regexes in SEED?
 SEED = [
     ['images', ['png', 'gif', 'bmp', 'jpeg']],
     ['audio', ['mp3', 'wav']],
@@ -14,6 +15,8 @@ SEED = [
     ['text', ['txt', 'doc']],
     ['archives', ['zip']]
 ]
+
+OUTNAME = 'fs.generated.json'
 
 
 def create_extension_map():
@@ -69,9 +72,13 @@ def organize(allowed=[], base=os.curdir):
         yield (dirpath, buckets)
 
 
-def create_json(allowed):
+def generate(allowed):
     today = datetime.today()
     script = {'org': {cat: files for (cat, files) in organize(allowed)}}
     script['date'] = today.strftime('%d/%m/%Y')
     script['timestamp'] = datetime.now().timestamp()
     return json.dumps(script)
+
+
+with open(OUTNAME, 'w') as file:
+    print(generate(['./myfiles', './myfiles/documents']), file=file)
