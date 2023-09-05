@@ -1,5 +1,4 @@
 import os
-import shutil
 import json
 from datetime import datetime
 

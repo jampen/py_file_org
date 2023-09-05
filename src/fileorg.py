@@ -2,6 +2,7 @@
 
 import json
 import os
+import shutil
 from pprint import pprint
 
 OUTNAME = 'fs.generated.json'
@@ -13,11 +14,23 @@ def read_file():
 
 
 def apply(fsmap):
-    items = fsmap['org']
+    org = fsmap['org']
 
-    for basedir, category in items:
-        path_to_category = f'{basedir}/{category}'
-        os.rmdir(path_to_category)
+    for basedir, categories in org.items():
+        for category, files in categories.items():
+            path_to_category = f'{basedir}/{category}'
+
+            if os.path.exists(path_to_category):
+                os.rmdir(path_to_category)
+
+            os.mkdir(path_to_category)
+
+            # Move the files
+
+            for file in files:
+                base_path_to_file = f'{basedir}/{file}'
+                moved_file_path = f'{path_to_category}/{file}'
+                shutil.move(base_path_to_file, moved_file_path)
 
 
 apply(fsmap=read_file())
