@@ -1,0 +1,15 @@
+{
+  "org": {
+    "./myfiles": {
+      "images": ["puppy.jpeg", "puppy2.jpeg"],
+      "src": ["main.h", "main.c"],
+      "text": ["bad.txt"],
+      "archives": ["archive.zip"]
+    },
+    "./myfiles/documents": {
+      "text": ["shopping list.txt", "password.txt", "hello.txt"]
+    }
+  },
+  "date": "05/09/2023",
+  "timestamp": 1693903697.878335
+}
