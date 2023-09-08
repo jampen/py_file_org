@@ -75,8 +75,3 @@ def generate(seed, allowed):
     script['date'] = today.strftime('%d/%m/%Y')
     script['timestamp'] = datetime.now().timestamp()
     return json.dumps(script)
-
-
-with open('file.json', 'w') as file:
-    res = generate(SEED, allowed=['./myfiles'])
-    print(res, file=file)

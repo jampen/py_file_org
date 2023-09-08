@@ -41,6 +41,3 @@ def apply(fsmap):
                     shutil.move(base_path_to_file, moved_file_path)
                 else:
                     print(f'{base_path_to_file} does not exist.')
-
-
-apply(fsmap=read_file())
