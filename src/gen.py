@@ -15,17 +15,15 @@ SEED = [
     ['archives', ['zip']]
 ]
 
-OUTNAME = 'fs.generated.json'
 
-
-def create_extension_map():
+def create_extension_map(seed):
     """
         Returns a map of key extension and value category
         for efficient indexing
     """
     extension_to_category = {}
 
-    for [category, extensions] in SEED:
+    for [category, extensions] in seed:
         for extension in extensions:
             extension_to_category[extension] = category
 
@@ -61,8 +59,8 @@ def create_buckets(finfo, ext_to_categories):
     return buckets
 
 
-def organize(allowed=[], base=os.curdir):
-    ext_to_categories = create_extension_map()
+def organize(seed, allowed=[], base=os.curdir):
+    ext_to_categories = create_extension_map(seed)
     for dirpath, dirnames, files in allowed_walk(base, set(allowed)):
         buckets = create_buckets(
             filter_files_by_category(files, ext_to_categories),
@@ -71,13 +69,14 @@ def organize(allowed=[], base=os.curdir):
         yield (dirpath, buckets)
 
 
-def generate(allowed):
+def generate(seed, allowed):
     today = datetime.today()
-    script = {'org': {cat: files for (cat, files) in organize(allowed)}}
+    script = {'org': {cat: files for (cat, files) in organize(seed, allowed)}}
     script['date'] = today.strftime('%d/%m/%Y')
     script['timestamp'] = datetime.now().timestamp()
     return json.dumps(script)
 
 
-with open(OUTNAME, 'w') as file:
-    print(generate(['./myfiles', './myfiles/documents']), file=file)
+with open('file.json', 'w') as file:
+    res = generate(SEED, allowed=['./myfiles'])
+    print(res, file=file)

@@ -1,0 +1,8 @@
+{
+  "categories": {
+    "images": ["png", "jpeg", "bmp", "gif", "webp"],
+    "text": ["txt"],
+    "src": ["c"]
+  },
+  "directories": ["myfiles/"]
+}
